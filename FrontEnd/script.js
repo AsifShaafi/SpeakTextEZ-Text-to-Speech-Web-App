@@ -3,11 +3,6 @@ document.querySelector("#uploadBox").addEventListener("click", function () {
     this.querySelector("input").click();
 });
 
-document.querySelector("#cameraBox").addEventListener("click", function () {
-    // Implement camera access here
-    alert("Camera access to be implemented");
-});
-
 function iconButtonClick() {
     alert("Button clicked");
 }
@@ -47,3 +42,18 @@ $(document).ready(function() {
          fileInput.trigger('change');
      });
 });
+
+let video = document.querySelector("#video");
+let canvas = document.querySelector("#canvas");
+
+document.querySelector("#cameraBox").addEventListener("click", async function () {
+    $('#camerastream').css('display', 'block');
+    let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+	video.srcObject = stream;
+});
+
+document.querySelector("#click-photo").addEventListener('click', function() {
+   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+//   	let image_data_url = canvas.toDataURL('image/jpeg');
+});
+

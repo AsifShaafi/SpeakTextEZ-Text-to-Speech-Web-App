@@ -106,3 +106,8 @@
 footer {
     text-align: center;
 }
+
+#camerastream {
+    display: none
+}
+
