@@ -120,6 +120,15 @@ footer {
 }
 
 #camerastream {
-    display: none
+    display: none;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#camerastream button {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
