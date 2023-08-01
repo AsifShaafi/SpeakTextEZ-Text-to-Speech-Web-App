@@ -9,6 +9,8 @@ function iconButtonClick() {
 
 $(document).ready(function () {
   $('#uploadBox').click(function () {
+    $('#camerastream').css('display', 'none');
+    closeVideoStream();
     $('#fileUpload').click();
   });
 
@@ -65,17 +67,31 @@ $(document).ready(function () {
   });
 });
 
-let video = document.querySelector("#video");
-let canvas = document.querySelector("#canvas");
+let video = document.querySelector('#video');
+let canvas = document.querySelector('#canvas');
+let stream;
 
-document.querySelector("#cameraBox").addEventListener("click", async function () {
-    $('#camerastream').css('display', 'block');
-    let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-	video.srcObject = stream;
+document
+  .querySelector('#cameraBox')
+  .addEventListener('click', async function () {
+    $('#uploaded-image-div').css('display', 'none');
+    $('#camerastream').css('display', 'flex');
+
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false,
+    });
+
+    video.srcObject = stream;
+  });
+
+document.querySelector('#click-photo').addEventListener('click', function () {
+  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+  //   	let image_data_url = canvas.toDataURL('image/jpeg');
 });
 
-document.querySelector("#click-photo").addEventListener('click', function() {
-   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-//   	let image_data_url = canvas.toDataURL('image/jpeg');
-});
-
+const closeVideoStream = async () => {
+  stream.getTracks().forEach((track) => {
+    track.stop();
+  });
+};
