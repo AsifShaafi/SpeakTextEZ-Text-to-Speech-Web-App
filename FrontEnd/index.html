@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-</head>
-<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
     <div id="sections">
+      <div>
+        <h1 style="text-align: center">SpeakTextEZ</h1>
+      </div>
+
+      <div class="first">
+        <div class="Purpose">Application Purpose</div>
+        <div>Use Instruction</div>
+      </div>
+
+      <div class="third-section">
         <div>
-            <h1 style="text-align:center">SpeakTextEZ</h1>
+          <h2 style="text-align: center">Image Capture/Upload</h2>
+        </div>
+        <div class="twobox">
+          <div class="box" id="uploadBox">
+            <div class="upload-image">
+              <img src="upload.png" alt="Upload Icon" />
+            </div>
+            <div id="dropZone">
+              Drag a file here or browse for files
+              <input
+                type="file"
+                id="fileUpload"
+                accept="image/*"
+                multiple
+                style="display: none"
+              />
+            </div>
+          </div>
+          <div class="box" id="cameraBox">
+            <div class="camera-image">
+              <img src="camera.png" alt="Upload Icon" />
+            </div>
+            <div>Click to access the camera</div>
+          </div>
         </div>
 
-        <div class="first">
-            <div class="Purpose">Application Purpose</div>
-            <div>Use Instruction</div>
-        </div>
-
-        <div class="third-section">
-            <div>
-            <h2 style="text-align:center">Image Capture/Upload</h2>
-            </div>
-            <div class="twobox">
-            <div class="box" id="uploadBox">
-                <div class="upload-image"> 
-                    <img src="upload.png" alt="Upload Icon">
-                </div>
-                <div id="dropZone">
-                    Drag a file here or browse for files
-                    <input type="file" id="fileUpload" accept="image/*" multiple style="display:none">
-                </div>
-            </div>
-            <div class="box" id="cameraBox">
-                <div class="camera-image"> 
-                    <img src="camera.png" alt="Upload Icon">
-                </div>
-                <div>
-                    Click to access the camera
-                </div>
-               
-            </div>
-        </div>
         <div class="file-list">
             <p>Uploaded Files:</p>
             <ul id="fileList"></ul>
@@ -48,21 +55,39 @@
                 <button id="click-photo">Click Photo</button>
                 <canvas id="canvas" width="320" height="240"></canvas>
             </div>
-        </div>
 
+        <div class="file-list" id="uploaded-image-div">
+          <p>Uploaded File:</p>
+          <ul id="fileList"></ul>
+          <div id="selected-image-display"></div>
 
-        <div class="read-only">
-            <div>Extracted Text</div>
-            <button onclick="iconButtonClick()">Click</button>
         </div>
+      </div>
+
+      <div class="read-only">
+        <div>Extracted Text</div>
+        <button onclick="iconButtonClick()">Click</button>
+      </div>
     </div>
 
-    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="uploadModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="uploadModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="uploadModalLabel">Success</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -70,7 +95,13 @@
             <p>Image uploaded successfully.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>
