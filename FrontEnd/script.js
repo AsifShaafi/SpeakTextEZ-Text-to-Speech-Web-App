@@ -18,6 +18,7 @@ $(document).ready(function() {
     });
 
     $('#fileUpload').change(function() {
+        $('#uploaded-image-div').css('display', 'block');
         $('#fileList').empty();
     
         var files = $(this).prop('files');
