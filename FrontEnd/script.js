@@ -3,8 +3,16 @@ document.querySelector('#uploadBox').addEventListener('click', function () {
   this.querySelector('input').click();
 });
 
-function iconButtonClick() {
-  alert('Button clicked');
+async function iconButtonClick() {
+  const formData = new FormData();
+
+  formData.append('image', document.getElementById('fileUpload').files[0]);
+
+  const response = await fetch("http://localhost:3001", {
+    method: 'POST',
+    body: formData
+  });
+  console.log(response);
 }
 
 $(document).ready(function () {
