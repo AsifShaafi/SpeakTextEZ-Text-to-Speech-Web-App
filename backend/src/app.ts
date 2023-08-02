@@ -1,8 +1,12 @@
 import express, { json, raw, urlencoded } from "express";
 import { registerRoutes } from "./routes";
 import { errorHandler } from "./middleware/error-handler";
+import cors from "cors";
+import { config } from "./config";
 
 const app = express();
+
+app.use(cors({ origin: config.corsOrigin }));
 
 app.use(json());
 app.use(raw());
