@@ -18,11 +18,6 @@ export const registerRoutes = (app: Application) => {
     const text = await detectText(image);
     const audio = await convertToSpeech(text);
 
-    res.writeHead(200, {
-      "Content-Type": "audio/mpeg",
-      "Content-disposition": "attachment;filename=audio.mp3",
-      "Content-Length": audio.length,
-    });
-    res.end(audio);
+    res.json({ text, audio });
   });
 };
