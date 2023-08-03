@@ -3,16 +3,20 @@ document.querySelector('#uploadBox').addEventListener('click', function () {
   this.querySelector('input').click();
 });
 
-
 async function iconButtonClick() {
   const formData = new FormData();
 
   const imageContent = getImageContent();
+  if (!imageContent) {
+    alert('Please select an image');
+    return;
+  }
+
   formData.append('image', imageContent);
 
-  const response = await fetch("http://localhost:3001", {
+  const response = await fetch('http://localhost:3001', {
     method: 'POST',
-    body: formData
+    body: formData,
   });
   const body = await response.json();
   const audioData = new Uint8Array(body.audio.data).buffer;
@@ -135,30 +139,38 @@ function dataURItoBlob(dataURL) {
 
 function getImageContent() {
   if (mode == 'upload') {
-    return document.getElementById('fileUpload').files[0]
+    return document.getElementById('fileUpload').files[0];
   }
   return dataURItoBlob(canvas.toDataURL('image/png'));
 }
 
 async function handleButtonClick() {
   // Show the loading modal
-  $('#loadingModal').modal('show');
+  // $('#loadingModal').modal('show');
+
+  $('#read_text_btn').css('display', 'none');
+  $('#loading_text').css('display', 'block');
 
   const audioElement = document.getElementById('audioPlayer');
 
   try {
     const audioDataURI = await iconButtonClick();
 
+    if (!audioDataURI) {
+      return;
+    }
+
     audioElement.src = audioDataURI;
 
     audioElement.controls = true;
 
     audioElement.play();
-
   } catch (error) {
     console.error('Error: Audio not being played', error);
   } finally {
     // Hide the loading modal after the process is done
-    $('#loadingModal').modal('hide');
+    // $('#loadingModal').modal('hide');
+    $('#loading_text').css('display', 'none');
+    $('#read_text_btn').css('display', 'block');
   }
 }
