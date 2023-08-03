@@ -141,6 +141,9 @@ function getImageContent() {
 }
 
 async function handleButtonClick() {
+  // Show the loading modal
+  $('#loadingModal').modal('show');
+
   const audioElement = document.getElementById('audioPlayer');
 
   try {
@@ -154,5 +157,8 @@ async function handleButtonClick() {
 
   } catch (error) {
     console.error('Error: Audio not being played', error);
+  } finally {
+    // Hide the loading modal after the process is done
+    $('#loadingModal').modal('hide');
   }
 }
