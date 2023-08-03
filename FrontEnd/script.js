@@ -14,8 +14,9 @@ async function iconButtonClick() {
     method: 'POST',
     body: formData
   });
-  console.log(response);
-  const audioData = await response.arrayBuffer();
+  const body = await response.json();
+  const audioData = new Uint8Array(body.audio.data).buffer;
+  const extractedText = body.text; // TODO: Display this text on the screen
   const audioBlob = new Blob([audioData], { type: 'audio/mpeg' });
 
   return new Promise((resolve, reject) => {
