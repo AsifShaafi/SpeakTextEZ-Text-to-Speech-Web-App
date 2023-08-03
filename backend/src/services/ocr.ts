@@ -7,7 +7,7 @@ const client = new vision.ImageAnnotatorClient({
 export const detectText = async (image: Buffer): Promise<string> => {
   const [result] = await client.textDetection(image);
   const detections = result.textAnnotations;
-  const text = detections?.map((text) => text.description).join("");
+  const text = detections?.[0]?.description;
   if (!text) {
     throw new Error("No text detected");
   }

@@ -11,5 +11,6 @@ const getEnv = (name: string, defaultVal?: string): string => {
 };
 
 export const config = {
-  port: +getEnv("PORT", "3000"),
+  port: +getEnv("PORT", "3001"),
+  corsOrigin: getEnv("CORS_ORIGIN", "*"),
 };

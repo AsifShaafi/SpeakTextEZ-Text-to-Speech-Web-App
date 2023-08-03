@@ -3,12 +3,25 @@ document.querySelector('#uploadBox').addEventListener('click', function () {
   this.querySelector('input').click();
 });
 
-function iconButtonClick() {
-  alert('Button clicked');
+
+async function iconButtonClick() {
+  const formData = new FormData();
+
+  const imageContent = getImageContent();
+  formData.append('image', imageContent);
+
+  const response = await fetch("http://localhost:3001", {
+    method: 'POST',
+    body: formData
+  });
+  console.log(response);
 }
+
+let mode = 'upload';
 
 $(document).ready(function () {
   $('#uploadBox').click(function () {
+    mode = 'upload';
     $('#camerastream').css('display', 'none');
     closeVideoStream();
     $('#fileUpload').click();
@@ -74,6 +87,7 @@ let stream;
 document
   .querySelector('#cameraBox')
   .addEventListener('click', async function () {
+    mode = 'camera';
     $('#uploaded-image-div').css('display', 'none');
     $('#camerastream').css('display', 'flex');
 
@@ -95,3 +109,19 @@ const closeVideoStream = async () => {
     track.stop();
   });
 };
+
+function dataURItoBlob(dataURL) {
+  var blobBin = atob(dataURL.split(',')[1]);
+  var array = [];
+  for (var i = 0; i < blobBin.length; i++) {
+    array.push(blobBin.charCodeAt(i));
+  }
+  return new Blob([new Uint8Array(array)], { type: 'image/png' });
+}
+
+function getImageContent() {
+  if (mode == 'upload') {
+    return document.getElementById('fileUpload').files[0]
+  }
+  return dataURItoBlob(canvas.toDataURL('image/png'));
+}
