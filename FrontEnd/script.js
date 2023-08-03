@@ -14,7 +14,17 @@ async function iconButtonClick() {
     method: 'POST',
     body: formData
   });
-  console.log(response);
+  const body = await response.json();
+  const audioData = new Uint8Array(body.audio.data).buffer;
+  const extractedText = body.text; // TODO: Display this text on the screen
+  const audioBlob = new Blob([audioData], { type: 'audio/mpeg' });
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(audioBlob);
+  });
 }
 
 let mode = 'upload';
@@ -124,4 +134,21 @@ function getImageContent() {
     return document.getElementById('fileUpload').files[0]
   }
   return dataURItoBlob(canvas.toDataURL('image/png'));
+}
+
+async function handleButtonClick() {
+  const audioElement = document.getElementById('audioPlayer');
+
+  try {
+    const audioDataURI = await iconButtonClick();
+
+    audioElement.src = audioDataURI;
+
+    audioElement.controls = true;
+
+    audioElement.play();
+
+  } catch (error) {
+    console.error('Error: Audio not being played', error);
+  }
 }
