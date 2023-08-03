@@ -41,12 +41,12 @@ h1, h2 {
     border-radius: 4px;
     margin: auto;
     width: 70%;
-    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     user-select: none;
+    flex-direction: column;
 }
 
 .third-section {
@@ -140,4 +140,16 @@ footer {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+#text_display {
+    text-align: center;
+    padding: 4px;
+    margin: 10px;
+}
+
+#extracted_text {
+    text-align: justify;
+    padding: 6px;
+    margin: 4px;
 }

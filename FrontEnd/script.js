@@ -16,8 +16,12 @@ async function iconButtonClick() {
   });
   const body = await response.json();
   const audioData = new Uint8Array(body.audio.data).buffer;
-  const extractedText = body.text; // TODO: Display this text on the screen
+  const extractedText = body.text;
   const audioBlob = new Blob([audioData], { type: 'audio/mpeg' });
+
+  // Showing the extracted text in the UI
+  document.getElementById('extracted_text').innerHTML = extractedText;
+  document.getElementById('extracted_text').style.border = '1px solid #ccc';
 
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
