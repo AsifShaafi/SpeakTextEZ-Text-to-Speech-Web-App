@@ -1,5 +1,4 @@
 document.querySelector('#uploadBox').addEventListener('click', function () {
-  console.log('uploaded');
   this.querySelector('input').click();
 });
 
@@ -56,9 +55,6 @@ $(document).ready(function () {
     //   const ctx = canvas.getContext('2d');
     const FR = new FileReader();
     FR.addEventListener('load', (evt) => {
-      console.log(evt.target.result);
-      console.log('url(' + FR.result + ')');
-
       const img = new Image();
       img.addEventListener('load', () => {
         // ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -106,7 +102,7 @@ document
   .querySelector('#cameraBox')
   .addEventListener('click', async function () {
     mode = 'camera';
-    $('#uploaded-image-div').css('display', 'none');
+    removeUploadedImage();
     $('#camerastream').css('display', 'flex');
 
     stream = await navigator.mediaDevices.getUserMedia({
@@ -173,4 +169,9 @@ async function handleButtonClick() {
     $('#loading_text').css('display', 'none');
     $('#read_text_btn').css('display', 'block');
   }
+}
+
+const removeUploadedImage = () => { 
+  $('#uploaded-image-div').css('display', 'none').css('background-image', '');
+  $('#fileUpload').val('');
 }
