@@ -14,7 +14,7 @@ async function iconButtonClick() {
 
   formData.append('image', imageContent);
 
-  const response = await fetch('http://localhost:3001', {
+  const response = await fetch(window.__API_URL__, {
     method: 'POST',
     body: formData,
   });
