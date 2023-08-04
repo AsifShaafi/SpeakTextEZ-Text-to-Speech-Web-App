@@ -1,0 +1,30 @@
+name: Publish page
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Prepare pages
+        run: |
+          git checkout --orphan pages
+          shopt -s extglob
+          rm -r !(FrontEnd|.git)
+          mv FrontEnd/* .
+          echo "window.__API_URL__ = '${{ secrets.API_URL }}'" >> env.js
+
+      - name: Commit and push changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Add published page"
+          git push --force origin pages
