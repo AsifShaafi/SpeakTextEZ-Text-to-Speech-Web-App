@@ -40,7 +40,8 @@ $(document).ready(function () {
   $('#uploadBox').click(function () {
     mode = 'upload';
     $('#camerastream').css('display', 'none');
-    closeVideoStream();
+    // closeVideoStream();
+    $('#read_text_btn').addClass('btn btn-success');
     $('#fileUpload').click();
   });
 
