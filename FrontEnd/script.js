@@ -41,11 +41,11 @@ $(document).ready(function () {
     mode = 'upload';
     $('#camerastream').css('display', 'none');
     closeVideoStream();
-    $('#read_text_btn').addClass('btn btn-success');
     $('#fileUpload').click();
   });
 
   $('#fileUpload').change(function () {
+    $('#read_text_btn').addClass('btn btn-success');
     $('#uploaded-image-div').css('display', 'block');
     $('#fileList').empty();
 
