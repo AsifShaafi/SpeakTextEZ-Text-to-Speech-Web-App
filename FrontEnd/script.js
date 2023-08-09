@@ -97,6 +97,7 @@ $(document).ready(function () {
 let video = document.querySelector('#video');
 let canvas = document.querySelector('#canvas');
 let stream;
+let capturedImage;
 
 document
   .querySelector('#cameraBox')
@@ -113,9 +114,10 @@ document
     video.srcObject = stream;
   });
 
-document.querySelector('#click-photo').addEventListener('click', function () {
-  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-  //   	let image_data_url = canvas.toDataURL('image/jpeg');
+document.querySelector('#click-photo').addEventListener('click', async function () {
+  capturedImage = await new ImageCapture(stream.getVideoTracks()[0]).takePhoto();
+  const image = await createImageBitmap(capturedImage)
+  canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
 });
 
 const closeVideoStream = async () => {
@@ -124,20 +126,11 @@ const closeVideoStream = async () => {
   });
 };
 
-function dataURItoBlob(dataURL) {
-  var blobBin = atob(dataURL.split(',')[1]);
-  var array = [];
-  for (var i = 0; i < blobBin.length; i++) {
-    array.push(blobBin.charCodeAt(i));
-  }
-  return new Blob([new Uint8Array(array)], { type: 'image/png' });
-}
-
 function getImageContent() {
   if (mode == 'upload') {
     return document.getElementById('fileUpload').files[0];
   }
-  return dataURItoBlob(canvas.toDataURL('image/png'));
+  return capturedImage;
 }
 
 async function handleButtonClick() {
