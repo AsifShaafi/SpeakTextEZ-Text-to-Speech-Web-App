@@ -11,6 +11,7 @@ const getEnv = (name: string, defaultVal?: string): string => {
 };
 
 export const config = {
+  allowedConfidenceThreshold: +getEnv("ALLOWED_CONFIDENCE_THRESHOLD", "0.8"),
   port: +getEnv("PORT", "3001"),
   corsOrigin: getEnv("CORS_ORIGIN", "*"),
 };
