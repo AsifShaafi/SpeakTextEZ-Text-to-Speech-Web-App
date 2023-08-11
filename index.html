@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>SpeakTextEZ</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div id="sections">
+      <div>
+        <h1 style="text-align: center">SpeakTextEZ</h1>
+      </div>
+
+      <!--       <div class="first">
+        <div class="Purpose">Application Purpose</div>
+        <div>Use Instruction</div>
+      </div>
+ -->
+      <div class="first">
+        <div class="Purpose">
+          <strong>Application Purpose:</strong> A web-based application designed to enhance accessibility by seamlessly extracting
+          and vocalizing text from images. Whether it's capturing text through your device's camera or uploading images,
+          our user-friendly platform ensures that the content becomes audible and comprehensible.
+          We've also taken into consideration users with color blindness, ensuring an inclusive experience for all.
+        </div>
+        <br>
+        <div>
+          <u>User Guide for Application Features</u>
+          <br>
+          <br>
+          <b>Image Upload:</b>
+          <li>Click the "Drag a file here or browse for files" button.</li>
+          <li>Select the image with text from your device.</li>
+          <li>Wait for the image to process.</li>
+          <li>Click the "Read Text" button to listen to the converted speech.</li>
+          <br>
+
+          <b>Camera Capture:</b>
+          <li>Click the "Click to access the camera" button.</li>
+	      <li>Align your device's camera with the text.</li>
+          <li>Wait for the text to be recognized.</li>
+	      <li>Click the "Read Text" button to hear the converted speech.</li>
+        </div>
+      </div>
+      <div class="third-section">
+        <div>
+          <h2 style="text-align: center">Image Capture/Upload</h2>
+        </div>
+        <div class="twobox">
+          <div class="box" id="uploadBox">
+            <div class="upload-image">
+              <img src="upload.png" alt="Upload Icon" />
+            </div>
+            <div id="dropZone">
+              Drag a file here or browse for files
+              <input
+                aria-label="Image Upload"
+                type="file"
+                id="fileUpload"
+                accept="image/*"
+                style="display: none"
+              />
+            </div>
+          </div>
+          <div class="box" id="cameraBox">
+            <div class="camera-image">
+              <img src="camera.png" alt="Camera Icon" />
+            </div>
+            <div>Click to access the camera</div>
+          </div>
+        </div>
+
+        <div id="camerastream">
+          <video id="video" width="320" height="240" autoplay></video>
+          <button id="click-photo">Click Photo</button>
+          <canvas id="canvas" width="320" height="240"></canvas>
+        </div>
+        <div class="file-list" id="uploaded-image-div">
+          <p>Uploaded File:</p>
+          <ul id="fileList"></ul>
+          <div id="selected-image-display"></div>
+        </div>
+      </div>
+
+      <div class="read-only">
+        <div>
+          <button
+            type="button"
+            id="read_text_btn"
+            class="btn btn-secondary"
+            onclick="handleButtonClick()"
+          >
+            Read Text
+          </button>
+          <div
+            id="loading_text"
+            style="
+              display: none;
+              justify-items: center;
+              text-align: center;
+            "
+          >
+            <div class="spinner-border text-primary" role="status"></div>
+            <p style="margin: auto 10px;">Loading, please wait...</p>
+          </div>
+        </div>
+        <audio id="audioPlayer" controls></audio>
+        <hr />
+        <div id="text_display">
+          <h4>Extracted Text</h4>
+          <p id="extracted_text" style="white-space: pre-wrap;"></p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="uploadModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="uploadModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="uploadModalLabel">Success</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Image uploaded successfully.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="loadingModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="text-center">
+              <div class="spinner-border text-primary" role="status"></div>
+              <p>Loading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="env.js"></script>
+    <script src="script.js"></script>
+  </body>
+  <footer>&copy; Copyright 2023 by J<sup>2</sup>TS<sup>2</sup></footer>
+</html>
